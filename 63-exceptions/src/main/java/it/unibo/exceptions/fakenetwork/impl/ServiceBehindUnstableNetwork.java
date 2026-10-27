@@ -69,7 +69,7 @@ public final class ServiceBehindUnstableNetwork implements NetworkComponent {
             */
            throw new IllegalArgumentException(message, exceptionWhenParsedAsNumber); 
            /*
-           * IllegalStateException cause an a test error. Actualy it makes sence to throw an a 
+           * IllegalStateException cause an a test error. Actualy it makes sence to throw the 
            * IllegalArgumentException in thise case, becouse of an a incorrect data in input
            */
         }
