@@ -26,9 +26,6 @@ public class GraphImpl<N> implements Graph<N> {
 
     @Override
     public void addEdge(N source, N target) {
-        if (source == null || target == null) {
-            return;
-        }
         this.nodeExists(source);
         this.nodeExists(target);
         this.edges.get(source).add(target);
