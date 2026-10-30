@@ -1,22 +1,24 @@
 package it.unibo.generics.graph.impl;
 
-import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 
 import it.unibo.generics.graph.api.Graph;
+import it.unibo.generics.graph.api.GraphExplorationStrategy;
 
 public class GraphImpl<N> implements Graph<N> {
     private final Map<N, Set<N>> edges;
+    private final GraphExplorationStrategy<N> explorationStrategy;
 
-    public GraphImpl() {
+    public GraphImpl(GraphExplorationStrategy<N> explorationStrategy) {
         edges = new HashMap<>();
+
+        this.explorationStrategy = explorationStrategy;
     }
 
     @Override
@@ -44,22 +46,19 @@ public class GraphImpl<N> implements Graph<N> {
 
     @Override
     public List<N> getPath(N source, N target) {
-        try {
-            this.nodeExists(source);
-            this.nodeExists(target);
-        } catch (IllegalArgumentException e) {
-            return List.of();
-        }
+        this.nodeExists(source);
+        this.nodeExists(target);
 
-        Queue<N> queue = new ArrayDeque<>();
+        this.explorationStrategy.reset();
+
         Set<N> visited = new HashSet<>();
         Map<N, N> previous = new HashMap<>();
 
-        queue.add(source);
+        this.explorationStrategy.add(source);
         visited.add(source);
 
-        while (!queue.isEmpty()) {
-            N currentNode = queue.poll();
+        while (!this.explorationStrategy.isEmpty()) {
+            N currentNode = this.explorationStrategy.remove();
 
             if (currentNode.equals(target)) {
                 List<N> path = new LinkedList<>();
@@ -76,7 +75,7 @@ public class GraphImpl<N> implements Graph<N> {
             for (N connectedNode : this.edges.get(currentNode)) {
                 if (visited.add(connectedNode)) {
                     previous.put(connectedNode, currentNode);
-                    queue.add(connectedNode);
+                    this.explorationStrategy.add(connectedNode);
                 }
             }
         }

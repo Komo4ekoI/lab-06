@@ -1,6 +1,8 @@
 package it.unibo.generics.graph;
 
 import it.unibo.generics.graph.api.Graph;
+import it.unibo.generics.graph.impl.BFSExplorationStrategy;
+import it.unibo.generics.graph.impl.DFSExplorationSrtategy;
 import it.unibo.generics.graph.impl.GraphImpl;
 
 import java.util.Arrays;
@@ -28,7 +30,8 @@ public final class UseGraph {
         /*
          * Test your graph implementation(s) by calling testGraph
          */
-        testGraph(new GraphImpl<String>());
+        testGraph(new GraphImpl<String>(new BFSExplorationStrategy<>()));
+        testGraph(new GraphImpl<String>(new DFSExplorationSrtategy<>()));
     }
 
     private static void testGraph(final Graph<String> graph) {
