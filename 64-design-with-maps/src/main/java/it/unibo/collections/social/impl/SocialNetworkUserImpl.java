@@ -117,6 +117,6 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
                 followersSet.addAll(groupFollowers);
             }
         }
-    return new ArrayList<>(followersSet);
+        return new ArrayList<>(followersSet);
     }
 }
