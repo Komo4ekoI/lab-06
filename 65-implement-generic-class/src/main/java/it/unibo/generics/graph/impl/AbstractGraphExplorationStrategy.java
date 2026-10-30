@@ -16,4 +16,9 @@ public abstract class AbstractGraphExplorationStrategy<N> implements GraphExplor
     protected Deque<N> getNodes() {
         return this.nodes;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return nodes.isEmpty();
+    }
 }
